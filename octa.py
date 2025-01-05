@@ -69,21 +69,30 @@ def main():
     </style>
     """, unsafe_allow_html=True)
 
-    # Add header with application title and description
-    with st.container():
-        st.markdown(
-            "<h1 class='header-title'>ABP-Xplorer – An Artificial Intelligence Approach towards the Development of Bacterial Inhibitors</h1>",
-            unsafe_allow_html=True
-        )
-        st.markdown(
-            """
-            <p class='header-subtitle'>
-            Welcome to ABP-Xplorer: Redefining Antibacterial Peptide Discovery; Experience the future of peptide research with ABP-Xplorer. Powered by Machine Learning, ABP-Xplorer simplifies the discovery of peptides with potent antibacterial activity. With an impressive 96% accuracy, ABP-Xplorer is designed to accelerate peptide discovery, targeting microbial threats with unparalleled efficiency. Whether you're advancing research or combating bacterial resistance, this revolutionary tool empowers you to unlock the secrets of peptide bioactivity. Explore. Innovate. Conquer bacteria with ABP-Xplorer!
-            </p>
-            """,
-            unsafe_allow_html=True
-        )
-        st.image("imagef.jpg", width=300)
+    # Add header with application title, description, and centralized image
+st.markdown(
+    """
+    <style>
+        .center-content {
+            text-align: center;
+        }
+        .center-image {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 500px; /* Adjust width if needed */
+        }
+    </style>
+    <div class="center-content">
+        <p class='header-subtitle'>
+        Welcome to ABP-Xplorer: Redefining Antibacterial Peptide Discovery; Experience the future of peptide research with ABP-Xplorer. Powered by Machine Learning, ABP-Xplorer simplifies the discovery of peptides with potent antibacterial activity. With an impressive 96% accuracy, ABP-Xplorer is designed to accelerate peptide discovery, targeting microbial threats with unparalleled efficiency. Whether you're advancing research or combating bacterial resistance, this revolutionary tool empowers you to unlock the secrets of peptide bioactivity. Explore. Innovate. Conquer bacteria with ABP-Xplorer!
+        </p>
+        <img src="imagef.jpg" class="center-image">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 
 if __name__ == "__main__":
     main()
