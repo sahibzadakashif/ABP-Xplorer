@@ -206,12 +206,21 @@ def parse_fasta(file_content):
 
 
 def predict_peptide_structure(sequences):
-    atc_df_list = [atc(seq) for seq in sequences if seq]
-    btc_df_list = [btc(seq) for seq in sequences if seq]
-    df_features = pd.concat([pd.concat(atc_df_list, axis=0),
-                             pd.concat(btc_df_list, axis=0)], axis=1)
+    # Ensure all sequences are strings and non-empty
+    sequences = [str(seq).strip() for seq in sequences if seq]
+    if not sequences:
+        raise ValueError("No valid sequences provided.")
+
+    atc_df_list = [atc(seq) for seq in sequences]
+    btc_df_list = [btc(seq) for seq in sequences]
+
+    df_features = pd.concat(
+        [pd.concat(atc_df_list, axis=0), pd.concat(btc_df_list, axis=0)], axis=1
+    )
+
     feature_cols = ['ATC_C', 'ATC_H', 'ATC_N', 'ATC_O', 'ATC_S', 'BTC_T', 'BTC_H', 'BTC_S', 'BTC_D']
     df_features = df_features.reindex(columns=feature_cols, fill_value=0)
+
     y_pred = model.predict(df_features)
     prediction_probability = model.predict_proba(df_features)[:, 1]
     return y_pred, prediction_probability
@@ -221,16 +230,16 @@ st.markdown(
     """
     <style>
     .title {
-        color: #800000;  /* Parrot Green color code */
+        color: #800000;  /* Maroon color code */
         font-size: 2em;
         font-weight: bold;
+        text-align: center;
     }
     </style>
     <h1 class="title">Peptide Sequence Submission</h1>
     """,
     unsafe_allow_html=True
 )
-
 
 if 'page' not in st.session_state:
     st.session_state.page = 'input'
@@ -244,25 +253,30 @@ if st.session_state.page == 'input':
 
     submit_button = st.button("Submit", key="input_submit")
 
-    if submit_button:
-        st.session_state.submit_count += 1
-
     if fasta_file:
-        fasta_content = fasta_file.getvalue().decode("utf-8").splitlines()
-        protein_sequences = parse_fasta(fasta_content)
-        st.info("File uploaded. Ready to submit.")
+        try:
+            fasta_content = fasta_file.getvalue().decode("utf-8").splitlines()
+            protein_sequences = parse_fasta(fasta_content)
+            st.info("File uploaded. Ready to submit.")
+        except Exception as e:
+            st.error(f"Error reading file: {e}")
     else:
-        protein_sequences = protein_sequences.strip().split('\n')
+        protein_sequences = protein_sequences.strip().split('\n') if protein_sequences else []
 
     if submit_button:
         if not protein_sequences:
             st.error("Please enter protein sequences or upload a FASTA file.")
         else:
-            st.session_state.protein_sequences = protein_sequences
-            predictions, prediction_probability = predict_peptide_structure(protein_sequences)
-            st.session_state.prediction = predictions
-            st.session_state.prediction_probability = prediction_probability
-            st.session_state.page = 'output'
+            try:
+                st.session_state.protein_sequences = protein_sequences
+                predictions, prediction_probability = predict_peptide_structure(protein_sequences)
+                st.session_state.prediction = predictions
+                st.session_state.prediction_probability = prediction_probability
+                st.session_state.page = 'output'
+            except ValueError as e:
+                st.error(str(e))
+            except Exception as e:
+                st.error(f"An unexpected error occurred: {e}")
 
 if st.session_state.page == 'output':
     st.subheader("Prediction Results")
@@ -286,6 +300,7 @@ if st.session_state.page == 'output':
 
     st.button("Back", on_click=lambda: setattr(st.session_state, 'page', 'input'))
     structure_container = st.container()
+
 
 # HTML and CSS to color the title and header
 st.markdown(
