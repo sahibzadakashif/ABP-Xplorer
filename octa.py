@@ -306,8 +306,8 @@ st.markdown(
 )
 
 # Add a section with the developers' information at the bottom of the page
-st.markdown("---")
-st.header("ABP-Xplorer Team:")
+#st.markdown("---")
+#st.header("ABP-Xplorer Team:")
 # Add the profiles as individual cards
 row1, row2 = st.columns([1, 1])
 row3 = st.columns(1)
