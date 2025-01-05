@@ -206,10 +206,10 @@ def parse_fasta(file_content):
 
 
 def predict_peptide_structure(sequences):
-    ddr_df_list = [ddr(seq) for seq in sequences if seq]
-    dpc_df_list = [dpc(seq) for seq in sequences if seq]
-    df_features = pd.concat([pd.concat(ddr_df_list, axis=0),
-                             pd.concat(dpc_df_list, axis=0)], axis=1)
+    atc_df_list = [atc(seq) for seq in sequences if seq]
+    btc_df_list = [btc(seq) for seq in sequences if seq]
+    df_features = pd.concat([pd.concat(atc_df_list, axis=0),
+                             pd.concat(btc_df_list, axis=0)], axis=1)
     feature_cols = ['ATC_C', 'ATC_H', 'ATC_N', 'ATC_O', 'ATC_S', 'BTC_T', 'BTC_H', 'BTC_S', 'BTC_D']
     df_features = df_features.reindex(columns=feature_cols, fill_value=0)
     y_pred = model.predict(df_features)
