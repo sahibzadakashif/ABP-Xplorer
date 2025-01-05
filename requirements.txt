@@ -11,3 +11,4 @@ biotite==0.39.0
 bio==1.6.2
 ipython==8.12.3
 ipython-genutils==0.2.0
+setuptools>=58.0.0
