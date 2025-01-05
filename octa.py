@@ -285,7 +285,6 @@ if st.session_state.page == 'output':
     st.button("Back", on_click=lambda: setattr(st.session_state, 'page', 'input'))
     structure_container = st.container()
 
-
 # HTML and CSS to color the title and header
 st.markdown(
     """
