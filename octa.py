@@ -15,13 +15,13 @@ import streamlit as st
 
 def main():
     # Set the color scheme
-      header_color = '#800000'         # Maroon
-      background_color = '#FFFFFF'     # White
-      text_color = '#333333'           # Dark Gray
-      primary_color = '#A52A2A'        # Darker Maroon
-      footer_color = '#550000'         # Deep Maroon
-      footer_text_color = '#FFFFFF'    # White
-      font = 'Arial, sans-serif'
+    header_color = '#800000'         # Maroon
+    background_color = '#FFFFFF'     # White
+    text_color = '#333333'           # Dark Gray
+    primary_color = '#A52A2A'        # Darker Maroon
+    footer_color = '#550000'         # Deep Maroon
+    footer_text_color = '#FFFFFF'    # White
+    font = 'Arial, sans-serif'
 
 
     # Set the page config
