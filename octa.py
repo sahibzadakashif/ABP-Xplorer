@@ -332,7 +332,7 @@ with col2:
             Email: abbas@stu.haut.edu.cn
         </div>
     """, unsafe_allow_html=True)
- with col3:
+with col3:
     # st.image("teacher-photo.jpg", width=100)
     st.markdown("""
         <div style='line-height: 1.1;'>
