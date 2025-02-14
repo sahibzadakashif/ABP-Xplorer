@@ -310,7 +310,7 @@ st.markdown(
 #st.header("ABP-Xplorer Team:")
 # Add the profiles as individual cards
 # Define columns for the profiles
-col1, col2, col3, col4 = st.columns([1, 1, 1])
+col1, col2, col3 = st.columns([1, 1, 1])
 
 with col1:
     # st.image("my-photo.jpg", width=100)
